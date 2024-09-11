@@ -5,9 +5,9 @@ RUN mkdir -p /opt/v2ray/ && \
     apt-get update && \
     apt-get install -y wget unzip && \
     V2RAY_PLATFORM="" && \
-    if [ "$TARGETOS" = "linux" ] && [ "$TARGETARCH" = "amd64" ]; then \
+    if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
     V2RAY_PLATFORM="linux-64"; \
-    elif [ "$TARGETOS" = "linux" ] && [ "$TARGETARCH" = "amd64" ]; then \
+    elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
     V2RAY_PLATFORM="linux-arm64-v8a"; \
     else \
     echo "Unsupported platform: $TARGETPLATFORM"; \
