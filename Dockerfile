@@ -3,10 +3,28 @@ RUN mkdir -p /opt/v2ray/ && \
     cd /opt/v2ray/ && \
     apt-get update && \
     apt-get install -y wget unzip && \
-    wget --no-check-certificate -O v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip && \
+    V2RAY_OS="" && \
+    V2RAY_ARCH="" && \
+    if [ "$TARGETOS" = "linux" ]; then \
+        V2RAY_OS="linux"; \
+        if [ "$TARGETARCH" = "amd64" ]; then \
+            V2RAY_ARCH="64"; \
+        elif [ "$TARGETARCH" = "arm64" ]; then \
+            V2RAY_ARCH="arm64-v8a"; \
+        else \
+            echo "Unsupported architecture: $TARGETARCH"; \
+            exit 1; \
+        fi; \
+    else \
+        echo "Unsupported OS: $TARGETOS"; \
+        exit 1; \
+    fi && \
+    if [ -n "$V2RAY_OS" ] && [ -n "$V2RAY_ARCH" ]; then \
+        wget --no-check-certificate -O v2ray.zip "https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-${V2RAY_OS}-${V2RAY_ARCH}.zip"; \
+    fi && \
     unzip v2ray.zip
 
-# busybox 缺失根 CA 证书
+# fix missing root CA certificate in busybox
 FROM alpine:latest as certs
 RUN apk update && \
     apk add ca-certificates
