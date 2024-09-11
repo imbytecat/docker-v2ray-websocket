@@ -1,4 +1,5 @@
 FROM ubuntu:latest AS builder
+ARG TARGETPLATFORM
 RUN mkdir -p /opt/v2ray/ && \
     cd /opt/v2ray/ && \
     apt-get update && \
