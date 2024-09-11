@@ -1,4 +1,6 @@
-# docker-v2ray-websocket
+# [imbytecat/v2ray-websocket](https://github.com/imbytecat/docker-v2ray-websocket)
+
+![](https://github.com/imbytecat/docker-v2ray-websocket/actions/workflows/build.yaml/badge.svg)
 
 V2Ray WebSocket in Docker container
 
