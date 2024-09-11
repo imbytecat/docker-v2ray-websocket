@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  linux-amd64:
+  buildx:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

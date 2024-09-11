@@ -3,29 +3,20 @@ RUN mkdir -p /opt/v2ray/ && \
     cd /opt/v2ray/ && \
     apt-get update && \
     apt-get install -y wget unzip && \
-    V2RAY_OS="" && \
-    V2RAY_ARCH="" && \
-    if [ "$TARGETOS" = "linux" ]; then \
-        V2RAY_OS="linux"; \
-        if [ "$TARGETARCH" = "amd64" ]; then \
-            V2RAY_ARCH="64"; \
-        elif [ "$TARGETARCH" = "arm64" ]; then \
-            V2RAY_ARCH="arm64-v8a"; \
-        else \
-            echo "Unsupported architecture: $TARGETARCH"; \
-            exit 1; \
-        fi; \
+    V2RAY_PLATFORM="" && \
+    if [ "$TARGETOS" = "linux" ] && [ "$TARGETARCH" = "amd64" ]; then \
+    V2RAY_PLATFORM="linux-64"; \
+    elif [ "$TARGETOS" = "linux" ] && [ "$TARGETARCH" = "amd64" ]; then \
+    V2RAY_PLATFORM="linux-arm64-v8a"; \
     else \
-        echo "Unsupported OS: $TARGETOS"; \
-        exit 1; \
+    echo "Unsupported platform: $TARGETPLATFORM"; \
+    exit 1; \
     fi && \
-    if [ -n "$V2RAY_OS" ] && [ -n "$V2RAY_ARCH" ]; then \
-        wget --no-check-certificate -O v2ray.zip "https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-${V2RAY_OS}-${V2RAY_ARCH}.zip"; \
-    fi && \
+    wget --no-check-certificate -O v2ray.zip "https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-${V2RAY_PLATFORM}.zip"; \
     unzip v2ray.zip
 
 # fix missing root CA certificate in busybox
-FROM alpine:latest as certs
+FROM alpine:latest AS certs
 RUN apk update && \
     apk add ca-certificates
 
