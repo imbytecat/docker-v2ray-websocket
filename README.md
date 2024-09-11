@@ -2,7 +2,7 @@
 
 ![](https://github.com/imbytecat/docker-v2ray-websocket/actions/workflows/build.yaml/badge.svg)
 
-V2Ray WebSocket in Docker container
+V2Ray WebSocket in Docker container.
 
 ## Usage
 
@@ -13,8 +13,8 @@ docker run \
   -d \
   -p 80:80 \
   --name v2ray-websocket \
-  --restart always \
-  -e UUID="2a028f3e-03df-43e0-a13d-de2e8049f74d" \
+  --restart unless-stopped \
+  -e UUID=<your-uuid> \
   imbytecat/v2ray-websocket:latest
 ```
 
@@ -23,11 +23,11 @@ With Docker Compose:
 ```yaml
 services:
   v2ray-websocket:
-    image: imbytecat/v2ray-websocket
+    image: imbytecat/v2ray-websocket:latest
     container_name: v2ray-websocket
     environment:
-      UUID: 2a028f3e-03df-43e0-a13d-de2e8049f74d
+      UUID: <your-uuid>
     ports:
       - 80:80
-    restart: always
+    restart: unless-stopped
 ```

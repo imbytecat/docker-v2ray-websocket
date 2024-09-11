@@ -1,4 +1,4 @@
-name: Build V2Ray WebSocket
+name: Build Docker Image
 
 on:
   push:
