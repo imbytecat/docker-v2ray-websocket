@@ -3,7 +3,7 @@ cat >/etc/v2ray/config.json <<EOF
 {
   "inbounds": [
     {
-      "tag": "vmess-ws",
+      "listen": "0.0.0.0",
       "port": 80,
       "protocol": "vmess",
       "settings": {
@@ -16,7 +16,8 @@ cat >/etc/v2ray/config.json <<EOF
       },
       "streamSettings": {
         "network": "ws"
-      }
+      },
+      "tag": "in-vmess-ws"
     }
   ],
   "outbounds": [
